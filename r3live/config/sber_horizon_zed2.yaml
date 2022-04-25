@@ -1,0 +1,58 @@
+Lidar_front_end:
+   lidar_type: 1   # 1 for Livox-avia, 3 for Ouster-OS1-64
+   N_SCANS: 6 # WF: 6 for Livox Horizon
+   using_raw_point: 1
+   point_step: 1 # TODO: Check its role, can affect scanning process
+   
+r3live_common:
+   if_dump_log: 0                   # If recording ESIKF update log. [default = 0]
+   record_offline_map: 1            # If recording offline map. [default = 1]
+   pub_pt_minimum_views: 3          # Publish points which have been render up to "pub_pt_minimum_views" time. [default = 3]
+   minimum_pts_size: 0.01           # The minimum distance for every two points in Global map (unit in meter). [default = 0.01] 
+   image_downsample_ratio: 1        # The downsample ratio of the input image. [default = 1]
+   estimate_i2c_extrinsic: 1        # If enable estimate the extrinsic between camera and IMU. [default = 1] 
+   estimate_intrinsic: 1            # If enable estimate the online intrinsic calibration of the camera lens. [default = 1] 
+   maximum_vio_tracked_pts: 600     # The maximum points for tracking. [default = 600]
+   append_global_map_point_step: 4  # The point step of append point to global map. [default = 4]
+
+r3live_vio:
+   image_width: 1280
+   image_height: 720
+   # From bag file
+#   camera_intrinsic:
+#     [ 526.215393, 0.0, 642.309021,
+#       0.0, 526.215393, 368.699493,
+#       0.0, 0.0, 1.0 ]
+   # From Amiran
+   camera_intrinsic:
+     [ 513.9195221, 0.0, 638.20818345,
+       0.0, 514.26664969, 368.26763722,
+       0.0, 0.0, 1.0 ]
+   camera_dist_coeffs: [-0.01318935, -0.00131136, -0.00091831, -0.00087753, 0.0]  #k1, k2, p1, p2, k3
+   # Fine extrinsic value. form camera-LiDAR calibration.
+#   camera_ext_R:
+#         [-0.00113207, -0.0158688, 0.999873,
+#            -0.9999999,  -0.000486594, -0.00113994,
+#            0.000504622,  -0.999874,  -0.0158682]
+   # camera_ext_t: [0.050166, 0.0474116, -0.0312415] 
+#   camera_ext_t: [0,0,0]
+   # Rough extrinsic value, form CAD model, is not correct enough, but can be online calibrated in our datasets.
+   camera_ext_R:
+      [0, 0, 1,
+      -1, 0, 0,
+      0, -1, 0]
+   camera_ext_t: [-0.022,0.0945,0.07618]
+#   camera_ext_R:
+#     [ 0.00127535, -0.99991452, -0.01301248,
+#       0.92173633,  0.00622188, -0.38776724,
+#       0.38781505, -0.01149953,  0.92166547 ]
+#   camera_ext_t: [ 0.00185175, 0.31879745, 0.02065923 ]
+   
+r3live_lio:        
+   lio_update_point_step: 4   # Point step used for LIO update.  TODO: Check. Can affect scanning
+   max_iteration: 2           # Maximum times of LIO esikf. TODO: Check. Can affect scanning
+   lidar_time_delay: 0        # The time-offset between LiDAR and IMU, provided by user. 
+   filter_size_corner: 0.30   # TODO: Check. Can affect scanning
+   filter_size_surf: 0.30
+   filter_size_surf_z: 0.30
+   filter_size_map: 0.30

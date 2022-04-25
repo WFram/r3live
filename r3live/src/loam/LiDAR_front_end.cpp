@@ -17,7 +17,8 @@ enum LID_TYPE
     MID,
     HORIZON,
     VELO16,
-    OUST64
+    OUST64,
+    BPEARL
 };
 
 enum Feature
@@ -82,6 +83,7 @@ void   mid_handler( const sensor_msgs::PointCloud2::ConstPtr &msg );
 void   horizon_handler( const livox_ros_driver::CustomMsg::ConstPtr &msg );
 void   velo16_handler( const sensor_msgs::PointCloud2::ConstPtr &msg );
 void   oust64_handler( const sensor_msgs::PointCloud2::ConstPtr &msg );
+void   bpearl_handler( const sensor_msgs::PointCloud2::ConstPtr &msg );
 void   give_feature( pcl::PointCloud< PointType > &pl, vector< orgtype > &types, pcl::PointCloud< PointType > &pl_corn,
                      pcl::PointCloud< PointType > &pl_surf );
 void   pub_func( pcl::PointCloud< PointType > &pl, ros::Publisher pub, const ros::Time &ct );
@@ -143,6 +145,11 @@ int main( int argc, char **argv )
     case OUST64:
         printf( "OUST64\n" );
         sub_points = n.subscribe( "/os_cloud_node/points", 1000, oust64_handler, ros::TransportHints().tcpNoDelay() );
+        break;
+
+    case BPEARL:
+        printf( "BPEARL\n" );
+        sub_points = n.subscribe( "/rslidar_points", 1000, bpearl_handler, ros::TransportHints().tcpNoDelay() );
         break;
 
     default:
@@ -374,6 +381,61 @@ void oust64_handler(const sensor_msgs::PointCloud2::ConstPtr &msg)
                 cout << ( int ) ( pl_orig.points[ i ].ring ) << ", " << ( pl_orig.points[ i ].t / 1e9 ) << ", " << pl_orig.points[ i ].range << endl;
             }
         }
+    }
+    pub_func( pl_processed, pub_full, msg->header.stamp );
+    pub_func( pl_processed, pub_surf, msg->header.stamp );
+    pub_func( pl_processed, pub_corn, msg->header.stamp );
+}
+
+void bpearl_handler(const sensor_msgs::PointCloud2::ConstPtr &msg)
+{
+    pcl::PointCloud< PointType > pl_processed;
+    pcl::PointCloud< pcl::PointXYZI > pl_orig;
+    pcl::fromROSMsg( *msg, pl_orig );
+    uint plsize = pl_orig.size();
+
+    double time_stamp = msg->header.stamp.toSec();
+    pl_processed.clear();
+    pl_processed.reserve( pl_orig.points.size() );
+    for ( int i = 0; i < pl_orig.points.size(); i++ )
+    {
+        double range = std::sqrt( pl_orig.points[ i ].x * pl_orig.points[ i ].x + pl_orig.points[ i ].y * pl_orig.points[ i ].y +
+                                  pl_orig.points[ i ].z * pl_orig.points[ i ].z );
+        if ( range < blind )
+        {
+            continue;
+        }
+        Eigen::Vector3d pt_vec;
+        PointType       added_pt;
+        added_pt.x = pl_orig.points[ i ].x;
+        added_pt.y = pl_orig.points[ i ].y;
+        added_pt.z = pl_orig.points[ i ].z;
+        added_pt.intensity = pl_orig.points[ i ].intensity;
+        added_pt.normal_x = 0;
+        added_pt.normal_y = 0;
+        added_pt.normal_z = 0;
+        double yaw_angle = std::atan2( added_pt.y, added_pt.x ) * 57.3; // Convert to degrees
+        if ( yaw_angle >= 180.0 ) // Guarantee that the point azimuth is in range [-180; 180]
+            yaw_angle -= 360.0;
+        if ( yaw_angle <= -180.0 )
+            yaw_angle += 360.0;
+
+//        added_pt.curvature = ( pl_orig.points[ i ].t / 1e9 ) * 1000.0; // TODO: Solve the issue with Bpearl timestamps
+//        std::cout << "Point Timestamp: " pl_orig.points[i].t << std::endl;
+
+        pl_processed.points.push_back( added_pt );
+//        if ( 0 ) // For debug
+//        {
+//            if ( pl_processed.size() % 1000 == 0 )
+//            {
+//                printf( "[%d] (%.2f, %.2f, %.2f), ( %.2f, %.2f, %.2f ) | %.2f | %.3f,  \r\n", i, pl_orig.points[ i ].x, pl_orig.points[ i ].y,
+//                        pl_orig.points[ i ].z, pl_processed.points.back().normal_x, pl_processed.points.back().normal_y,
+//                        pl_processed.points.back().normal_z, yaw_angle, pl_processed.points.back().intensity );
+//                // printf("(%d, %.2f, %.2f)\r\n", pl_orig.points[i].ring, pl_orig.points[i].t, pl_orig.points[i].range);
+//                // printf("(%d, %d, %d)\r\n", pl_orig.points[i].ring, 1, 2);
+//                cout << ( int ) ( pl_orig.points[ i ].ring ) << ", " << ( pl_orig.points[ i ].t / 1e9 ) << ", " << pl_orig.points[ i ].range << endl;
+//            }
+//        }
     }
     pub_func( pl_processed, pub_full, msg->header.stamp );
     pub_func( pl_processed, pub_surf, msg->header.stamp );

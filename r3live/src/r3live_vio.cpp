@@ -202,7 +202,7 @@ void R3LIVE::set_initial_camera_parameter( StatesGroup &state, double *intrinsic
     g_cam_K << intrinsic_data[ 0 ] / cam_k_scale, intrinsic_data[ 1 ], intrinsic_data[ 2 ] / cam_k_scale, intrinsic_data[ 3 ],
         intrinsic_data[ 4 ] / cam_k_scale, intrinsic_data[ 5 ] / cam_k_scale, intrinsic_data[ 6 ], intrinsic_data[ 7 ], intrinsic_data[ 8 ];
     g_cam_dist = Eigen::Map< Eigen::Matrix< double, 5, 1 > >( camera_dist_data );
-    state.rot_ext_i2c = Eigen::Map< Eigen::Matrix< double, 3, 3, Eigen::RowMajor > >( imu_camera_ext_R );
+    state.rot_ext_i2c = Eigen::Map< Eigen::Matrix< double, 3, 3, Eigen::RowMajor > >( imu_camera_ext_R ); // Camera->IMU (IMU is a base frame)
     state.pos_ext_i2c = Eigen::Map< Eigen::Matrix< double, 3, 1 > >( imu_camera_ext_t );
     // state.pos_ext_i2c.setZero();
 
@@ -438,9 +438,8 @@ void R3LIVE::load_vio_parameters()
     m_ros_node_handle.getParam( "r3live_vio/image_height", m_vio_image_heigh );
     m_ros_node_handle.getParam( "r3live_vio/camera_intrinsic", camera_intrinsic_data );
     m_ros_node_handle.getParam( "r3live_vio/camera_dist_coeffs", camera_dist_coeffs_data );
-    m_ros_node_handle.getParam( "r3live_vio/camera_ext_R", camera_ext_R_data );
+    m_ros_node_handle.getParam( "r3live_vio/camera_ext_R", camera_ext_R_data ); // Camera->IMU (IMU is a base frame)
     m_ros_node_handle.getParam( "r3live_vio/camera_ext_t", camera_ext_t_data );
-
     CV_Assert( ( m_vio_image_width != 0 && m_vio_image_heigh != 0 ) );
 
     if ( ( camera_intrinsic_data.size() != 9 ) || ( camera_dist_coeffs_data.size() != 5 ) || ( camera_ext_R_data.size() != 9 ) ||
@@ -456,7 +455,7 @@ void R3LIVE::load_vio_parameters()
 
     m_camera_intrinsic = Eigen::Map< Eigen::Matrix< double, 3, 3, Eigen::RowMajor > >( camera_intrinsic_data.data() );
     m_camera_dist_coeffs = Eigen::Map< Eigen::Matrix< double, 5, 1 > >( camera_dist_coeffs_data.data() );
-    m_camera_ext_R = Eigen::Map< Eigen::Matrix< double, 3, 3, Eigen::RowMajor > >( camera_ext_R_data.data() );
+    m_camera_ext_R = Eigen::Map< Eigen::Matrix< double, 3, 3, Eigen::RowMajor > >( camera_ext_R_data.data() ); // Camera->IMU (IMU is a base frame)
     m_camera_ext_t = Eigen::Map< Eigen::Matrix< double, 3, 1 > >( camera_ext_t_data.data() );
 
     cout << "[Ros_parameter]: r3live_vio/Camera Intrinsic: " << endl;
@@ -620,7 +619,7 @@ bool      R3LIVE::vio_esikf( StatesGroup &state_in, Rgbmap_tracker &op_track )
     if ( !m_if_estimate_i2c_extrinsic )
     {
         state_iter.pos_ext_i2c = m_inital_pos_ext_i2c;
-        state_iter.rot_ext_i2c = m_inital_rot_ext_i2c;
+        state_iter.rot_ext_i2c = m_inital_rot_ext_i2c; // Camera->IMU (IMU is a base frame)
     }
 
     Eigen::Matrix< double, -1, -1 >                       H_mat;
@@ -658,7 +657,7 @@ bool      R3LIVE::vio_esikf( StatesGroup &state_in, Rgbmap_tracker &op_track )
         mat_3_3 R_imu = state_iter.rot_end;
         vec_3   t_imu = state_iter.pos_end;
         vec_3   t_c2w = R_imu * state_iter.pos_ext_i2c + t_imu;
-        mat_3_3 R_c2w = R_imu * state_iter.rot_ext_i2c; // world to camera frame
+        mat_3_3 R_c2w = R_imu * state_iter.rot_ext_i2c; // Camera->World (World is a base frame)
 
         fx = state_iter.cam_intrinsic( 0 );
         fy = state_iter.cam_intrinsic( 1 );
@@ -784,7 +783,7 @@ bool R3LIVE::vio_photometric( StatesGroup &state_in, Rgbmap_tracker &op_track, s
     if ( !m_if_estimate_i2c_extrinsic ) // When disable the online extrinsic calibration.
     {
         state_iter.pos_ext_i2c = m_inital_pos_ext_i2c;
-        state_iter.rot_ext_i2c = m_inital_rot_ext_i2c;
+        state_iter.rot_ext_i2c = m_inital_rot_ext_i2c; // Camera->IMU (IMU is a base frame)
     }
     Eigen::Matrix< double, -1, -1 >                       H_mat, R_mat_inv;
     Eigen::Matrix< double, -1, 1 >                        meas_vec;

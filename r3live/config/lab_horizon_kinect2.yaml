@@ -16,26 +16,18 @@ r3live_common:
    append_global_map_point_step: 4  # The point step of append point to global map. [default = 4]
 
 r3live_vio:
-   image_width: 1280
-   image_height: 720
+   image_width: 1920
+   image_height: 1080
    camera_intrinsic:
-     [ 513.9195221, 0.0, 638.20818345,
-       0.0, 514.26664969, 368.26763722,
+     [ 1005.2349658444527, 0.0, 951.1921864937732,
+       0.0, 1005.5618437833184, 562.7644996499605,
        0.0, 0.0, 1.0 ]
-   camera_dist_coeffs: [-0.01318935, -0.00131136, -0.00091831, -0.00087753, 0.0]  #k1, k2, p1, p2, k3
-#   Camera->LiDAR
-#   From CAD model:
-#   camera_ext_R:
-#      [0, 0, 1,
-#      -1, 0, 0,
-#      0, -1, 0]
-#   camera_ext_t: [-0.022,0.0945,0.07618]
-#   From calibration
+   camera_dist_coeffs: [0.05100155355585925, -0.04377006383686457, 0.000625333133609035, 0.0024466916033656257, 0.0]  #k1, k2, p1, p2, k3
    camera_ext_R:
-     [ 0.03687, -0.09078, 0.99519,
-       -0.99862, -0.04060, 0.03330,
-       0.03739, -0.99504, -0.09216 ]
-   camera_ext_t: [ 0.08591, -0.01213, 0.11108 ]
+      [-0.00068, 0.07716, 0.99702,
+        0.99995, -0.00969, 0.00143,
+        0.00977, 0.99697, -0.07715]
+   camera_ext_t: [-0.01034, -0.05583, -0.16189]
    
 r3live_lio:        
    lio_update_point_step: 4   # Point step used for LIO update.  TODO: Check. Can affect scanning

@@ -686,17 +686,22 @@ int R3LIVE::service_LIO_update()
                             point_selected_surf[ i ] = true;
                             /** Find the closest surfaces in the map **/
                             ikdtree.Nearest_Search( pointSel_tmpt, NUM_MATCH_POINTS, points_near, pointSearchSqDis_surf );
-                            if (!pointSearchSqDis_surf.empty()) {
-                                float max_distance = pointSearchSqDis_surf[ NUM_MATCH_POINTS - 1 ];
-                                //  max_distance to add residuals
-                                // ANCHOR - Long range pt stragetry
-                                if ( max_distance > m_maximum_pt_kdtree_dis )
-                                {
-                                    point_selected_surf[ i ] = false;
-                                }
-                            }
-                            else {
-                                ROS_WARN("The vector with distances is empty!");
+                            float max_distance = pointSearchSqDis_surf[ NUM_MATCH_POINTS - 1 ];
+                            //  max_distance to add residuals
+                            // ANCHOR - Long range pt stragetry
+                            if ( max_distance > m_maximum_pt_kdtree_dis )
+                            {
+//                            if (!pointSearchSqDis_surf.empty()) {
+//                                float max_distance = pointSearchSqDis_surf[ NUM_MATCH_POINTS - 1 ];
+//                                //  max_distance to add residuals
+//                                // ANCHOR - Long range pt stragetry
+//                                if ( max_distance > m_maximum_pt_kdtree_dis )
+//                                {
+//                                    point_selected_surf[ i ] = false;
+//                                }
+//                            }
+//                            else {
+//                                ROS_WARN("The vector with distances is empty!");
                                 point_selected_surf[ i ] = false;
                             }
                         }

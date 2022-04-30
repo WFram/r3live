@@ -272,6 +272,9 @@ public:
     Eigen::Matrix<double, 3, 3, Eigen::RowMajor> m_camera_ext_R;
     Eigen::Matrix<double, 3, 1> m_camera_ext_t;
 
+//    Eigen::Matrix<double, 3, 3, Eigen::RowMajor> m_lidar_ext_R;
+//    Eigen::Matrix<double, 3, 1> m_lidar_ext_t;
+
     double m_image_downsample_ratio = 1.0;
     nav_msgs::Path camera_path;
     double m_cam_measurement_weight =  1e-3;
@@ -349,7 +352,7 @@ public:
         sub_img = m_ros_node_handle.subscribe(IMAGE_topic.c_str(), 1000000, &R3LIVE::image_callback, this, ros::TransportHints().tcpNoDelay());
         sub_img_comp = m_ros_node_handle.subscribe(IMAGE_topic_compressed.c_str(), 1000000, &R3LIVE::image_comp_callback, this, ros::TransportHints().tcpNoDelay());
 
-        m_ros_node_handle.getParam("/initial_pose", m_initial_pose);
+        m_ros_node_handle.getParam("/initial_pose", m_initial_pose); // TODO
         m_pub_rgb_render_pointcloud_ptr_vec.resize(1e3);
         // ANCHOR - ROS parameters
         if ( 1 )

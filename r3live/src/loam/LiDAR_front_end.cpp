@@ -1,5 +1,6 @@
 #include <ros/ros.h>
 #include <pcl_conversions/pcl_conversions.h>
+#include <pcl//filters/voxel_grid.h>
 #include <sensor_msgs/PointCloud2.h>
 #include <livox_ros_driver/CustomMsg.h>
 #include "../tools/tools_logger.hpp"
@@ -390,21 +391,31 @@ void oust64_handler(const sensor_msgs::PointCloud2::ConstPtr &msg)
 void bpearl_handler(const sensor_msgs::PointCloud2::ConstPtr &msg)
 {
     pcl::PointCloud< PointType > pl_processed;
+
     pcl::PointCloud< pcl::PointXYZI > pl_orig;
     pcl::fromROSMsg( *msg, pl_orig );
+    std::vector<int> indices;
+
     uint plsize = pl_orig.size();
+
+    pcl::removeNaNFromPointCloud(pl_orig, pl_orig, indices);
+//    removeClosedPointCloud(laserCloudIn, laserCloudIn, MINIMUM_RANGE); // Filter point cloud
 
     double time_stamp = msg->header.stamp.toSec();
     pl_processed.clear();
+
+    if (pl_orig.points.size() == 0) return;
     pl_processed.reserve( pl_orig.points.size() );
     for ( int i = 0; i < pl_orig.points.size(); i++ )
     {
-        double range = std::sqrt( pl_orig.points[ i ].x * pl_orig.points[ i ].x + pl_orig.points[ i ].y * pl_orig.points[ i ].y +
-                                  pl_orig.points[ i ].z * pl_orig.points[ i ].z );
+        double range = std::sqrt( pl_orig.points[ i ].x * pl_orig.points[ i ].x +
+                pl_orig.points[ i ].y * pl_orig.points[ i ].y +
+                pl_orig.points[ i ].z * pl_orig.points[ i ].z );
         if ( range < blind )
         {
             continue;
         }
+
         Eigen::Vector3d pt_vec;
         PointType       added_pt;
         added_pt.x = pl_orig.points[ i ].x;
@@ -422,20 +433,10 @@ void bpearl_handler(const sensor_msgs::PointCloud2::ConstPtr &msg)
 
 //        added_pt.curvature = ( pl_orig.points[ i ].t / 1e9 ) * 1000.0; // TODO: Solve the issue with Bpearl timestamps
 //        std::cout << "Point Timestamp: " pl_orig.points[i].t << std::endl;
-
-        pl_processed.points.push_back( added_pt );
-//        if ( 0 ) // For debug
-//        {
-//            if ( pl_processed.size() % 1000 == 0 )
-//            {
-//                printf( "[%d] (%.2f, %.2f, %.2f), ( %.2f, %.2f, %.2f ) | %.2f | %.3f,  \r\n", i, pl_orig.points[ i ].x, pl_orig.points[ i ].y,
-//                        pl_orig.points[ i ].z, pl_processed.points.back().normal_x, pl_processed.points.back().normal_y,
-//                        pl_processed.points.back().normal_z, yaw_angle, pl_processed.points.back().intensity );
-//                // printf("(%d, %.2f, %.2f)\r\n", pl_orig.points[i].ring, pl_orig.points[i].t, pl_orig.points[i].range);
-//                // printf("(%d, %d, %d)\r\n", pl_orig.points[i].ring, 1, 2);
-//                cout << ( int ) ( pl_orig.points[ i ].ring ) << ", " << ( pl_orig.points[ i ].t / 1e9 ) << ", " << pl_orig.points[ i ].range << endl;
-//            }
-//        }
+        if (i % point_filter_num == 0)
+        {
+            pl_processed.points.push_back( added_pt );
+        }
     }
     pub_func( pl_processed, pub_full, msg->header.stamp );
     pub_func( pl_processed, pub_surf, msg->header.stamp );

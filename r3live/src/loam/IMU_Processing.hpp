@@ -44,6 +44,8 @@ class ImuProcess
   void Reset();
   void IMU_Initial(const MeasureGroup &meas, StatesGroup &state, int &N);
 
+  void set_lidar_extrinsic(Eigen::Matrix3d &lidar_ext_R, Eigen::Vector3d &lidar_ext_t);
+
   // Eigen::Matrix3d Exp(const Eigen::Vector3d &ang_vel, const double &dt);
 
   void IntegrateGyr(const std::vector<sensor_msgs::Imu::ConstPtr> &v_imu);
@@ -64,6 +66,9 @@ class ImuProcess
 
   Eigen::Vector3d cov_acc;
   Eigen::Vector3d cov_gyr;
+
+  Eigen::Matrix3d m_lidar_ext_R;
+  Eigen::Vector3d m_lidar_ext_t;
 
   // std::ofstream fout;
 

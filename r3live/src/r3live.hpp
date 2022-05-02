@@ -272,8 +272,8 @@ public:
     Eigen::Matrix<double, 3, 3, Eigen::RowMajor> m_camera_ext_R;
     Eigen::Matrix<double, 3, 1> m_camera_ext_t;
 
-//    Eigen::Matrix<double, 3, 3, Eigen::RowMajor> m_lidar_ext_R;
-//    Eigen::Matrix<double, 3, 1> m_lidar_ext_t;
+    Eigen::Matrix<double, 3, 3, Eigen::RowMajor> m_lidar_ext_R;
+    Eigen::Matrix<double, 3, 1> m_lidar_ext_t;
 
     double m_image_downsample_ratio = 1.0;
     nav_msgs::Path camera_path;
@@ -394,6 +394,17 @@ public:
             get_ros_parameter( m_ros_node_handle, "r3live_lio/long_rang_pt_dis", m_long_rang_pt_dis, 500.0 );
             get_ros_parameter( m_ros_node_handle, "r3live_lio/publish_feature_map", m_if_publish_feature_map, false );
             get_ros_parameter( m_ros_node_handle, "r3live_lio/lio_update_point_step", m_lio_update_point_step, 1 );
+
+            std::vector< double > lidar_ext_R_data, lidar_ext_t_data;
+            m_ros_node_handle.getParam( "r3live_lio/lidar_ext_R", lidar_ext_R_data ); // LiDAR->IMU (IMU is a base frame)
+            m_ros_node_handle.getParam( "r3live_lio/lidar_ext_t", lidar_ext_t_data );
+            printf( "Load lidar data size = %d, %d\n", (int) lidar_ext_R_data.size(), (int) lidar_ext_t_data.size() );
+            m_lidar_ext_R = Eigen::Map< Eigen::Matrix< double, 3, 3, Eigen::RowMajor > >( lidar_ext_R_data.data() ); // LiDAR->IMU (IMU is a base frame)
+            m_lidar_ext_t = Eigen::Map< Eigen::Matrix< double, 3, 1 > >( lidar_ext_t_data.data() );
+
+            cout << "[Ros_parameter]: r3live_lio/LiDAR extrinsic R: " << endl;
+            cout << m_lidar_ext_R << endl;
+            cout << "[Ros_parameter]: r3live_lio/LiDAR extrinsic T: " << m_lidar_ext_t.transpose() << endl;
         }
         if ( 1 )
         {
@@ -434,7 +445,7 @@ public:
     void pointBodyToWorld(const Eigen::Matrix<T, 3, 1> &pi, Eigen::Matrix<T, 3, 1> &po)
     {
         Eigen::Vector3d p_body(pi[0], pi[1], pi[2]);
-        Eigen::Vector3d p_global(g_lio_state.rot_end * (p_body + Lidar_offset_to_IMU) + g_lio_state.pos_end);
+        Eigen::Vector3d p_global(g_lio_state.rot_end * (m_lidar_ext_R * p_body + m_lidar_ext_t) + g_lio_state.pos_end);
         po[0] = p_global(0);
         po[1] = p_global(1);
         po[2] = p_global(2);

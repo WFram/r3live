@@ -200,7 +200,7 @@ bool R3LIVE::sync_packages( MeasureGroup &meas )
 void R3LIVE::pointBodyToWorld( PointType const *const pi, PointType *const po )
 {
     Eigen::Vector3d p_body( pi->x, pi->y, pi->z );
-    Eigen::Vector3d p_global( g_lio_state.rot_end * ( p_body + Lidar_offset_to_IMU ) + g_lio_state.pos_end );
+    Eigen::Vector3d p_global( g_lio_state.rot_end * ( m_lidar_ext_R * p_body + m_lidar_ext_t ) + g_lio_state.pos_end );
 
     po->x = p_global( 0 );
     po->y = p_global( 1 );
@@ -211,7 +211,7 @@ void R3LIVE::pointBodyToWorld( PointType const *const pi, PointType *const po )
 void R3LIVE::RGBpointBodyToWorld( PointType const *const pi, pcl::PointXYZI *const po )
 {
     Eigen::Vector3d p_body( pi->x, pi->y, pi->z );
-    Eigen::Vector3d p_global( g_lio_state.rot_end * ( p_body + Lidar_offset_to_IMU ) + g_lio_state.pos_end );
+    Eigen::Vector3d p_global( g_lio_state.rot_end * ( m_lidar_ext_R * p_body + m_lidar_ext_t ) + g_lio_state.pos_end );
 
     po->x = p_global( 0 );
     po->y = p_global( 1 );
@@ -521,6 +521,7 @@ int R3LIVE::service_LIO_update()
     }
 
     std::shared_ptr< ImuProcess > p_imu( new ImuProcess() );
+    p_imu->set_lidar_extrinsic(m_lidar_ext_R, m_lidar_ext_t);
     m_imu_process = p_imu;
     //------------------------------------------------------------------------------------------------------
     ros::Rate rate( 5000 );
@@ -813,7 +814,7 @@ int R3LIVE::service_LIO_update()
                     {
                         const PointType &laser_p = laserCloudOri->points[ i ];
                         Eigen::Vector3d  point_this( laser_p.x, laser_p.y, laser_p.z );
-                        point_this += Lidar_offset_to_IMU;
+                        point_this = m_lidar_ext_R * point_this + m_lidar_ext_t;
                         Eigen::Matrix3d point_crossmat;
                         point_crossmat << SKEW_SYM_MATRIX( point_this );
 

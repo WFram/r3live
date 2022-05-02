@@ -13,7 +13,6 @@
 // #define COV_NOISE_EXT_I2C_Td (0.0 * 1e-3)
 
 
-
 double g_lidar_star_tim = 0;
 ImuProcess::ImuProcess() : b_first_frame_( true ), imu_need_init_( true ), last_imu_( nullptr ), start_timestamp_( -1 )
 {
@@ -26,8 +25,6 @@ ImuProcess::ImuProcess() : b_first_frame_( true ), imu_need_init_( true ), last_
     mean_gyr = Eigen::Vector3d( 0, 0, 0 );
     angvel_last = Zero3d;
     cov_proc_noise = Eigen::Matrix< double, DIM_OF_PROC_N, 1 >::Zero();
-    // Lidar_offset_to_IMU = Eigen::Vector3d(0.0, 0.0, -0.0);
-    // fout.open(DEBUG_FILE_DIR("imu.txt"),std::ios::out);
 }
 
 ImuProcess::~ImuProcess()
@@ -96,6 +93,11 @@ void ImuProcess::IMU_Initial( const MeasureGroup &meas, StatesGroup &state_inout
     state_inout.gravity = Eigen::Vector3d( 0, 0, 9.805 );
     state_inout.rot_end = Eye3d;
     state_inout.bias_g = mean_gyr;
+}
+
+void ImuProcess::set_lidar_extrinsic( Eigen::Matrix3d &lidar_ext_R, Eigen::Vector3d &lidar_ext_t ) {
+    m_lidar_ext_R = lidar_ext_R;
+    m_lidar_ext_t = lidar_ext_t;
 }
 
 void ImuProcess::lic_state_propagate( const MeasureGroup &meas, StatesGroup &state_inout )
@@ -382,7 +384,8 @@ void ImuProcess::lic_point_cloud_undistort( const MeasureGroup &meas, const Stat
     state_inout.rot_end = R_imu * Exp( angvel_avr, dt );
     state_inout.pos_end = pos_imu + vel_imu * dt + 0.5 * acc_imu * dt * dt;
 
-    Eigen::Vector3d pos_liD_e = state_inout.pos_end + state_inout.rot_end * Lidar_offset_to_IMU;
+    Eigen::Matrix3d rot_liD_e = state_inout.rot_end * m_lidar_ext_R;
+    Eigen::Vector3d pos_liD_e = state_inout.pos_end + state_inout.rot_end * m_lidar_ext_t;
     // auto R_liD_e   = state_inout.rot_end * Lidar_R_to_IMU;
 
 #ifdef DEBUG_PRINT
@@ -396,11 +399,14 @@ void ImuProcess::lic_point_cloud_undistort( const MeasureGroup &meas, const Stat
     for ( auto it_kp = IMU_pose.end() - 1; it_kp != IMU_pose.begin(); it_kp-- )
     {
         auto head = it_kp - 1;
-        R_imu << MAT_FROM_ARRAY( head->rot );
-        acc_imu << VEC_FROM_ARRAY( head->acc );
+        auto tail = it_kp;
         // std::cout<<"head imu acc: "<<acc_imu.transpose()<<std::endl;
+        R_imu << MAT_FROM_ARRAY( head->rot );
         vel_imu << VEC_FROM_ARRAY( head->vel );
         pos_imu << VEC_FROM_ARRAY( head->pos );
+//        acc_imu << VEC_FROM_ARRAY( tail->acc );
+//        angvel_avr << VEC_FROM_ARRAY( tail->gyr );
+        acc_imu << VEC_FROM_ARRAY( head->acc );
         angvel_avr << VEC_FROM_ARRAY( head->gyr );
 
         for ( ; it_pcl->curvature / double( 1000 ) > head->offset_time; it_pcl-- )
@@ -412,10 +418,16 @@ void ImuProcess::lic_point_cloud_undistort( const MeasureGroup &meas, const Stat
              * So if we want to compensate a point at timestamp-i to the frame-e
              * P_compensate = R_imu_e ^ T * (R_i * P_i + T_ei) where T_ei is represented in global frame */
             Eigen::Matrix3d R_i( R_imu * Exp( angvel_avr, dt ) );
-            Eigen::Vector3d T_ei( pos_imu + vel_imu * dt + 0.5 * acc_imu * dt * dt + R_i * Lidar_offset_to_IMU - pos_liD_e );
-
+            Eigen::Vector3d T_i ( pos_imu + vel_imu * dt + 0.5 * acc_imu * dt * dt );
+            Eigen::Matrix3d R_s( rot_liD_e.transpose() * R_i * m_lidar_ext_R );
+            Eigen::Matrix3d R_ei( Exp( SO3_LOG(  R_s ) ) );
+            Eigen::Vector3d T_ei( T_i + R_i * m_lidar_ext_t - pos_liD_e );
+//            Eigen::Vector3d T_i( pos_imu + vel_imu * dt + 0.5 * acc_imu * dt * dt - state_inout.pos_end);
+//            Eigen::Vector3d T_ei( pos_imu + vel_imu * dt + 0.5 * acc_imu * dt * dt + R_i * m_lidar_ext_t - pos_liD_e );
             Eigen::Vector3d P_i( it_pcl->x, it_pcl->y, it_pcl->z );
             Eigen::Vector3d P_compensate = state_inout.rot_end.transpose() * ( R_i * P_i + T_ei );
+//            Eigen::Vector3d P_compensate = m_lidar_ext_R.conjugate() * (state_inout.rot_end.conjugate() * (R_i * (m_lidar_ext_R * P_i + m_lidar_ext_t) + T_i) - m_lidar_ext_t);
+//            Eigen::Vector3d P_compensate = state_inout.rot_end.transpose() * ( R_i * P_i + T_ei );
 
             /// save Undistorted points and their rotation
             it_pcl->x = P_compensate( 0 );

@@ -31,11 +31,11 @@ r3live_vio:
 #      0, -1, 0]
 #   camera_ext_t: [-0.022,0.0945,0.07618]
 #   From calibration
-   camera_ext_R:
-     [ 0.03687, -0.09078, 0.99519,
-       -0.99862, -0.04060, 0.03330,
-       0.03739, -0.99504, -0.09216 ]
-   camera_ext_t: [ 0.08591, -0.01213, 0.11108 ]
+   camera_ext_R: # Camera->IMU (IMU is a base frame) TODO
+     [ 0.00068, -0.07716, 0.99702,
+       -0.99995, 0.00969, 0.00143,
+       -0.00977, -0.99697, -0.07715 ]
+   camera_ext_t: [ 0.05903, 0.11914, 0.04512 ]
    
 r3live_lio:        
    lio_update_point_step: 4   # Point step used for LIO update.  TODO: Check. Can affect scanning
@@ -45,3 +45,8 @@ r3live_lio:
    filter_size_surf: 0.30
    filter_size_surf_z: 0.30
    filter_size_map: 0.30
+   lidar_ext_R: # LiDAR->IMU (IMU is a base frame)
+     [ 1, 0, 0,
+       0, 1, 0,
+       0, 0, 1 ]
+   lidar_ext_t: [ 0.05512, 0.02226, -0.0297 ]

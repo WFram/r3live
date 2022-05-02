@@ -42,3 +42,8 @@ r3live_lio:
    filter_size_surf: 0.50
    filter_size_surf_z: 0.50
    filter_size_map: 0.50
+   lidar_ext_R: # LiDAR->IMU (IMU is a base frame)
+     [ 0.99663, 0.07122, -0.04059,
+       -0.06879, 0.99592, 0.05840,
+       0.04459, -0.05541, 0.99747 ]
+   lidar_ext_t: [ -0.00997, -0.16352, -0.04475]

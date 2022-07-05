@@ -1,22 +1,18 @@
 Lidar_front_end:
-   lidar_type: 4   # 1 for Livox-avia, 3 for Ouster-OS1-64, 4 for RS-Bpearl
-   N_SCANS: 32 # WF: 6 for Livox Horizon
+   lidar_type: 1   # 1 for Livox-avia, 3 for Ouster-OS1-64
+   N_SCANS: 6 # WF: 6 for Livox Horizon
    using_raw_point: 1
    point_step: 1 # TODO: Check its role, can affect scanning process
-#   point_filter_num: 4
-#   blind: 2
-
-   # TODO: There is no fov_degree and det_range as for FAST-LIO. Check the code to change in case they exist
    
 r3live_common:
    if_dump_log: 0                   # If recording ESIKF update log. [default = 0]
-   record_offline_map: 1            # If recording offline map. [default = 1]
+   record_offline_map: 0            # If recording offline map. [default = 1]
    pub_pt_minimum_views: 3          # Publish points which have been render up to "pub_pt_minimum_views" time. [default = 3]
    minimum_pts_size: 0.01           # The minimum distance for every two points in Global map (unit in meter). [default = 0.01] 
    image_downsample_ratio: 1        # The downsample ratio of the input image. [default = 1]
    estimate_i2c_extrinsic: 1        # If enable estimate the extrinsic between camera and IMU. [default = 1] 
    estimate_intrinsic: 0            # If enable estimate the online intrinsic calibration of the camera lens. [default = 1]
-   maximum_vio_tracked_pts: 600     # The maximum points for tracking. [default = 600] TODO: Check its role
+   maximum_vio_tracked_pts: 600     # The maximum points for tracking. [default = 600]
    append_global_map_point_step: 4  # The point step of append point to global map. [default = 4]
 
 r3live_vio:
@@ -28,22 +24,21 @@ r3live_vio:
        0.0, 0.0, 1.0 ]
    camera_dist_coeffs: [-0.01318935, -0.00131136, -0.00091831, -0.00087753, 0.0]  #k1, k2, p1, p2, k3
    camera_ext_R: # Camera->IMU (IMU is a base frame) TODO
-     [ 0.01669659, 0.02366404, 0.99958053,
-       -0.99980313, -0.01032411, 0.01694472,
-       0.01072076, -0.99966666, 0.023487 ]
-   camera_ext_t: [ -0.13722137, -0.01880091, 0.00905537 ]
+     [ 0.00068, -0.07716, 0.99702,
+       -0.99995, 0.00969, 0.00143,
+       -0.00977, -0.99697, -0.07715 ]
+   camera_ext_t: [ 0.05903, 0.11914, 0.04512 ]
    
-r3live_lio:
-   #   <param name="r3live_lio/lio_update_point_step" type="int" value="6" />
-   lio_update_point_step: 6   # Point step used for LIO update.  TODO: Check. Can affect scanning !!!
-   max_iteration: 3           # Maximum times of LIO esikf. TODO: Check. Can affect scanning
+r3live_lio:        
+   lio_update_point_step: 4   # Point step used for LIO update.  TODO: Check. Can affect scanning
+   max_iteration: 2           # Maximum times of LIO esikf. TODO: Check. Can affect scanning
    lidar_time_delay: 0        # The time-offset between LiDAR and IMU, provided by user. 
-   filter_size_corner: 0.30   # TODO: Check. Can affect scanning (!!!) We changed for surface, why not change for corners?
-   filter_size_surf: 0.50
-   filter_size_surf_z: 0.50
-   filter_size_map: 0.50
+   filter_size_corner: 0.30   # TODO: Check. Can affect scanning
+   filter_size_surf: 0.30
+   filter_size_surf_z: 0.30
+   filter_size_map: 0.30
    lidar_ext_R: # LiDAR->IMU (IMU is a base frame)
-     [ -0.02225, 0.08080, 0.99648,
-       -0.99786, 0.05948, -0.02710,
-       -0.06146, -0.99495, 0.07930 ]
-   lidar_ext_t: [ -0.07964, -0.02023, -0.15070 ]
+     [ 1, 0, 0,
+       0, 1, 0,
+       0, 0, 1 ]
+   lidar_ext_t: [ 0.05512, 0.02226, -0.0297 ]

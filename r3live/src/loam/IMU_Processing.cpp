@@ -1,13 +1,4 @@
 #include "IMU_Processing.hpp"
-#define COV_OMEGA_NOISE_DIAG 1e-1
-#define COV_ACC_NOISE_DIAG 0.4
-#define COV_GYRO_NOISE_DIAG 0.2
-
-#define COV_BIAS_ACC_NOISE_DIAG 0.05
-#define COV_BIAS_GYRO_NOISE_DIAG 0.1
-
-#define COV_START_ACC_DIAG 1e-1
-#define COV_START_GYRO_DIAG 1e-1
 // #define COV_NOISE_EXT_I2C_R (0.0 * 1e-3)
 // #define COV_NOISE_EXT_I2C_T (0.0 * 1e-3)
 // #define COV_NOISE_EXT_I2C_Td (0.0 * 1e-3)
@@ -95,7 +86,8 @@ void ImuProcess::IMU_Initial( const MeasureGroup &meas, StatesGroup &state_inout
     state_inout.bias_g = mean_gyr;
 }
 
-void ImuProcess::set_lidar_extrinsic( Eigen::Matrix3d &lidar_ext_R, Eigen::Vector3d &lidar_ext_t ) {
+void ImuProcess::set_lidar_extrinsic( Eigen::Matrix<double, 3, 3, Eigen::RowMajor> &lidar_ext_R,
+                                      Eigen::Matrix<double, 3, 1> &lidar_ext_t ) {
     m_lidar_ext_R = lidar_ext_R;
     m_lidar_ext_t = lidar_ext_t;
 }
@@ -422,12 +414,8 @@ void ImuProcess::lic_point_cloud_undistort( const MeasureGroup &meas, const Stat
             Eigen::Matrix3d R_s( rot_liD_e.transpose() * R_i * m_lidar_ext_R );
             Eigen::Matrix3d R_ei( Exp( SO3_LOG(  R_s ) ) );
             Eigen::Vector3d T_ei( T_i + R_i * m_lidar_ext_t - pos_liD_e );
-//            Eigen::Vector3d T_i( pos_imu + vel_imu * dt + 0.5 * acc_imu * dt * dt - state_inout.pos_end);
-//            Eigen::Vector3d T_ei( pos_imu + vel_imu * dt + 0.5 * acc_imu * dt * dt + R_i * m_lidar_ext_t - pos_liD_e );
             Eigen::Vector3d P_i( it_pcl->x, it_pcl->y, it_pcl->z );
-            Eigen::Vector3d P_compensate = state_inout.rot_end.transpose() * ( R_i * P_i + T_ei );
-//            Eigen::Vector3d P_compensate = m_lidar_ext_R.conjugate() * (state_inout.rot_end.conjugate() * (R_i * (m_lidar_ext_R * P_i + m_lidar_ext_t) + T_i) - m_lidar_ext_t);
-//            Eigen::Vector3d P_compensate = state_inout.rot_end.transpose() * ( R_i * P_i + T_ei );
+            Eigen::Vector3d P_compensate = m_lidar_ext_R * (R_ei * P_i + T_ei) + m_lidar_ext_t;
 
             /// save Undistorted points and their rotation
             it_pcl->x = P_compensate( 0 );

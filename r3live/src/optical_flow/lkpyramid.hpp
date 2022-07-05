@@ -119,9 +119,13 @@ public:
     void set_termination_criteria(cv::TermCriteria &crit);
 
 public:
+    // Stores octaves for the images
     std::vector<cv::Mat> m_prev_img_pyr, m_curr_img_pyr;
+
     std::vector<cv::Mat> m_prev_img_deriv_I, m_prev_img_deriv_I_buff;
     std::vector<cv::Mat> m_curr_img_deriv_I, m_curr_img_deriv_I_buff;
+
+    // Size of optical flow window
     cv::Size m_lk_win_size;
     int m_maxLevel;
     cv::TermCriteria m_terminate_criteria;

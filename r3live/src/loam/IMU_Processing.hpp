@@ -44,7 +44,8 @@ class ImuProcess
   void Reset();
   void IMU_Initial(const MeasureGroup &meas, StatesGroup &state, int &N);
 
-  void set_lidar_extrinsic(Eigen::Matrix3d &lidar_ext_R, Eigen::Vector3d &lidar_ext_t);
+  void set_lidar_extrinsic(Eigen::Matrix<double, 3, 3, Eigen::RowMajor> &lidar_ext_R,
+                           Eigen::Matrix<double, 3, 1> &lidar_ext_t);
 
   // Eigen::Matrix3d Exp(const Eigen::Vector3d &ang_vel, const double &dt);
 
@@ -67,8 +68,20 @@ class ImuProcess
   Eigen::Vector3d cov_acc;
   Eigen::Vector3d cov_gyr;
 
-  Eigen::Matrix3d m_lidar_ext_R;
-  Eigen::Vector3d m_lidar_ext_t;
+  // LiDAR extrinsic
+  Eigen::Matrix<double, 3, 3, Eigen::RowMajor> m_lidar_ext_R;
+  Eigen::Matrix<double, 3, 1> m_lidar_ext_t;
+
+  // IMU intrinsic
+  double COV_OMEGA_NOISE_DIAG = 1e-1;
+  double COV_ACC_NOISE_DIAG = 0.4;
+  double COV_GYRO_NOISE_DIAG = 0.2;
+
+  double COV_BIAS_ACC_NOISE_DIAG = 0.05;
+  double COV_BIAS_GYRO_NOISE_DIAG = 0.1;
+
+  double COV_START_ACC_DIAG = 1e-1;
+  double COV_START_GYRO_DIAG = 1e-1;
 
   // std::ofstream fout;
 

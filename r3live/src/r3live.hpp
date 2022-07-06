@@ -267,6 +267,11 @@ public:
     int m_if_record_mvs = 0;
     cv::Mat intrinsic, dist_coeffs;
 
+    double acc_noise = 1e-1;
+    double gyro_noise = 1e-1;
+    double acc_random_walk = 1e-4;
+    double gyro_random_walk = 1e-4;
+
     mat_3_3 m_inital_rot_ext_i2c;
     vec_3 m_inital_pos_ext_i2c;
     Eigen::Matrix<double, 3, 3, Eigen::RowMajor> m_camera_intrinsic;
@@ -423,6 +428,10 @@ public:
             get_ros_parameter(m_ros_node_handle, "r3live_lio/long_rang_pt_dis", m_long_rang_pt_dis, 500.0);
             get_ros_parameter(m_ros_node_handle, "r3live_lio/publish_feature_map", m_if_publish_feature_map, false);
             get_ros_parameter(m_ros_node_handle, "r3live_lio/lio_update_point_step", m_lio_update_point_step, 1);
+            get_ros_parameter(m_ros_node_handle, "r3live_lio/acc_noise", acc_noise, 1e-1);
+            get_ros_parameter(m_ros_node_handle, "r3live_lio/gyro_noise", gyro_noise, 1e-1);
+            get_ros_parameter(m_ros_node_handle, "r3live_lio/acc_random_walk", acc_random_walk, 1e-4);
+            get_ros_parameter(m_ros_node_handle, "r3live_lio/gyro_random_walk", gyro_random_walk, 1e-4);
 
             std::vector<double> lidar_ext_R_data, lidar_ext_t_data;
             m_ros_node_handle.getParam("r3live_lio/lidar_ext_R", lidar_ext_R_data); // LiDAR->IMU (IMU is a base frame)

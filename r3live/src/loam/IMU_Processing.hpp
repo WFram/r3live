@@ -1,4 +1,5 @@
 #pragma once
+
 #include <cmath>
 #include <math.h>
 #include <deque>
@@ -27,83 +28,118 @@
 
 /// *************Preconfiguration
 #define MAX_INI_COUNT (20)
-const inline bool time_list(PointType &x, PointType &y) {return (x.curvature < y.curvature);};
+
+const inline bool time_list(PointType &x, PointType &y) { return (x.curvature < y.curvature); };
+
 bool check_state(StatesGroup &state_inout);
+
 void check_in_out_state(const StatesGroup &state_in, StatesGroup &state_inout);
 
 /// *************IMU Process and undistortion
-class ImuProcess
-{
- public:
-  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+class ImuProcess {
+public:
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-  ImuProcess();
-  ~ImuProcess();
+    ImuProcess();
 
-  void Process(const MeasureGroup &meas, StatesGroup &state, PointCloudXYZINormal::Ptr pcl_un_);
-  void Reset();
-  void IMU_Initial(const MeasureGroup &meas, StatesGroup &state, int &N);
+    ~ImuProcess();
 
-  void set_lidar_extrinsic(Eigen::Matrix<double, 3, 3, Eigen::RowMajor> &lidar_ext_R,
-                           Eigen::Matrix<double, 3, 1> &lidar_ext_t);
+    void Process(const MeasureGroup &meas, StatesGroup &state, PointCloudXYZINormal::Ptr pcl_un_);
 
-  // Eigen::Matrix3d Exp(const Eigen::Vector3d &ang_vel, const double &dt);
+    void Reset();
 
-  void IntegrateGyr(const std::vector<sensor_msgs::Imu::ConstPtr> &v_imu);
+    void IMU_Initial(const MeasureGroup &meas, StatesGroup &state, int &N);
 
-  void UndistortPcl(const MeasureGroup &meas, StatesGroup &state_inout, PointCloudXYZINormal &pcl_in_out);
-  void lic_state_propagate(const MeasureGroup &meas, StatesGroup &state_inout);
-  void lic_point_cloud_undistort(const MeasureGroup &meas,  const StatesGroup &state_inout, PointCloudXYZINormal &pcl_out);
-  StatesGroup imu_preintegration(const StatesGroup & state_inout, std::deque<sensor_msgs::Imu::ConstPtr> & v_imu,  double end_pose_dt = 0);
-  ros::NodeHandle nh;
+    void set_lidar_extrinsic(Eigen::Matrix<double, 3, 3, Eigen::RowMajor> &lidar_ext_R,
+                             Eigen::Matrix<double, 3, 1> &lidar_ext_t);
 
-  void Integrate(const sensor_msgs::ImuConstPtr &imu);
-  void Reset(double start_timestamp, const sensor_msgs::ImuConstPtr &lastimu);
+    void set_imu_intrinsic(double n_a, double n_omega, double n_b_a, double n_b_omega);
 
-  Eigen::Vector3d angvel_last;
-  Eigen::Vector3d acc_s_last;
+    // Eigen::Matrix3d Exp(const Eigen::Vector3d &ang_vel, const double &dt);
 
-  Eigen::Matrix<double,DIM_OF_PROC_N,1> cov_proc_noise;
+    void IntegrateGyr(const std::vector<sensor_msgs::Imu::ConstPtr> &v_imu);
 
-  Eigen::Vector3d cov_acc;
-  Eigen::Vector3d cov_gyr;
+    void UndistortPcl(const MeasureGroup &meas, StatesGroup &state_inout, PointCloudXYZINormal &pcl_in_out);
 
-  // LiDAR extrinsic
-  Eigen::Matrix<double, 3, 3, Eigen::RowMajor> m_lidar_ext_R;
-  Eigen::Matrix<double, 3, 1> m_lidar_ext_t;
+    void lic_state_propagate(const MeasureGroup &meas, StatesGroup &state_inout);
 
-  // IMU intrinsic
-  double COV_OMEGA_NOISE_DIAG = 1e-1;
-  double COV_ACC_NOISE_DIAG = 0.4;
-  double COV_GYRO_NOISE_DIAG = 0.2;
+    void
+    lic_point_cloud_undistort(const MeasureGroup &meas, const StatesGroup &state_inout, PointCloudXYZINormal &pcl_out);
 
-  double COV_BIAS_ACC_NOISE_DIAG = 0.05;
-  double COV_BIAS_GYRO_NOISE_DIAG = 0.1;
+    StatesGroup imu_preintegration(const StatesGroup &state_inout, std::deque<sensor_msgs::Imu::ConstPtr> &v_imu,
+                                   double end_pose_dt = 0);
 
-  double COV_START_ACC_DIAG = 1e-1;
-  double COV_START_GYRO_DIAG = 1e-1;
+    ros::NodeHandle nh;
 
-  // std::ofstream fout;
+    void Integrate(const sensor_msgs::ImuConstPtr &imu);
 
- public:
-  /*** Whether is the first frame, init for first frame ***/
-  bool b_first_frame_ = true;
-  bool imu_need_init_ = true;
+    void Reset(double start_timestamp, const sensor_msgs::ImuConstPtr &lastimu);
 
-  int init_iter_num = 1;
-  Eigen::Vector3d mean_acc;
-  Eigen::Vector3d mean_gyr;
+    Eigen::Vector3d angvel_last;
+    Eigen::Vector3d acc_s_last;
 
-  /*** Undistorted pointcloud ***/
-  PointCloudXYZINormal::Ptr cur_pcl_un_;
+    Eigen::Matrix<double, DIM_OF_PROC_N, 1> cov_proc_noise;
 
-  //// For timestamp usage
-  sensor_msgs::ImuConstPtr last_imu_;
+    Eigen::Vector3d cov_acc;
+    Eigen::Vector3d cov_gyr;
 
-  /*** For gyroscope integration ***/
-  double start_timestamp_;
-  /// Making sure the equal size: v_imu_ and v_rot_
-  std::deque<sensor_msgs::ImuConstPtr> v_imu_;
-  std::vector<Eigen::Matrix3d> v_rot_pcl_;
-  std::vector<Pose6D> IMU_pose;
+    // LiDAR extrinsic
+    Eigen::Matrix<double, 3, 3, Eigen::RowMajor> m_lidar_ext_R;
+    Eigen::Matrix<double, 3, 1> m_lidar_ext_t;
+
+    // IMU intrinsic (Zed2)
+//    double COV_OMEGA_NOISE_DIAG = 0.013213877349668923;
+//    double COV_ACC_NOISE_DIAG = 0.04641977329563476;
+//    double COV_GYRO_NOISE_DIAG = 0.013213877349668923;
+//
+//    double COV_BIAS_ACC_NOISE_DIAG = 0.0019703618139556927;
+//    double COV_BIAS_GYRO_NOISE_DIAG = 2.206282069791498e-05;
+//
+//    double COV_START_ACC_DIAG = 0.04641977329563476;
+//    double COV_START_GYRO_DIAG = 0.013213877349668923;
+
+    // IMU intrinsic (Livox Horizon)
+    double COV_OMEGA_NOISE_DIAG = 1e-1;
+    double COV_ACC_NOISE_DIAG = 1e-1;
+    double COV_GYRO_NOISE_DIAG = 1e-1;
+
+    double COV_BIAS_ACC_NOISE_DIAG = 1e-4;
+    double COV_BIAS_GYRO_NOISE_DIAG = 1e-4;
+
+    double COV_START_ACC_DIAG = 1e-1;
+    double COV_START_GYRO_DIAG = 1e-1;
+
+//    double COV_OMEGA_NOISE_DIAG = 1e-1;
+//    double COV_ACC_NOISE_DIAG = 0.4;
+//    double COV_GYRO_NOISE_DIAG = 0.2;
+//
+//    double COV_BIAS_ACC_NOISE_DIAG = 0.05;
+//    double COV_BIAS_GYRO_NOISE_DIAG = 0.1;
+//
+//    double COV_START_ACC_DIAG = 1e-1;
+//    double COV_START_GYRO_DIAG = 1e-1;
+
+    // std::ofstream fout;
+
+public:
+    /*** Whether is the first frame, init for first frame ***/
+    bool b_first_frame_ = true;
+    bool imu_need_init_ = true;
+
+    int init_iter_num = 1;
+    Eigen::Vector3d mean_acc;
+    Eigen::Vector3d mean_gyr;
+
+    /*** Undistorted pointcloud ***/
+    PointCloudXYZINormal::Ptr cur_pcl_un_;
+
+    //// For timestamp usage
+    sensor_msgs::ImuConstPtr last_imu_;
+
+    /*** For gyroscope integration ***/
+    double start_timestamp_;
+    /// Making sure the equal size: v_imu_ and v_rot_
+    std::deque<sensor_msgs::ImuConstPtr> v_imu_;
+    std::vector<Eigen::Matrix3d> v_rot_pcl_;
+    std::vector<Pose6D> IMU_pose;
 };

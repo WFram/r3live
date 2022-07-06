@@ -4,9 +4,11 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
+        - /LIO1
         - /LIO1/Odometry2/Shape1
+        - /RGB_map1
       Splitter Ratio: 0.4651159942150116
-    Tree Height: 181
+    Tree Height: 196
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Time
@@ -105,8 +107,8 @@ Visualization Manager:
         - Alpha: 0.15000000596046448
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
-            Max Value: 41.73017501831055
-            Min Value: -4.219354629516602
+            Max Value: 0.6244477033615112
+            Min Value: -0.6840590238571167
             Value: true
           Axis: Z
           Channel Name: intensity
@@ -114,7 +116,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: AxisColor
           Decay Time: 100000
-          Enabled: false
+          Enabled: true
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -129,7 +131,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: false
+          Value: true
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -411,7 +413,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -426,7 +428,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -439,7 +441,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -454,7 +456,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -467,7 +469,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -482,7 +484,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -495,7 +497,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -510,7 +512,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -523,7 +525,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -538,7 +540,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -551,7 +553,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -566,7 +568,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -579,7 +581,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -594,7 +596,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -607,7 +609,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -622,7 +624,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -635,7 +637,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -650,7 +652,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -663,7 +665,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -678,7 +680,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -691,7 +693,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -706,7 +708,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -719,7 +721,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -734,7 +736,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -747,7 +749,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -762,7 +764,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -775,7 +777,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -790,7 +792,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -803,7 +805,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -818,7 +820,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -831,7 +833,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -846,7 +848,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -859,7 +861,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -874,7 +876,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -887,7 +889,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -902,7 +904,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -915,7 +917,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -930,7 +932,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -943,7 +945,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -958,7 +960,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -971,7 +973,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -986,7 +988,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -999,7 +1001,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1014,7 +1016,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1027,7 +1029,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1042,7 +1044,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1055,7 +1057,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1070,7 +1072,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1083,7 +1085,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1098,7 +1100,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1111,7 +1113,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1126,7 +1128,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1139,7 +1141,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1154,7 +1156,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1167,7 +1169,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1182,7 +1184,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1195,7 +1197,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1210,7 +1212,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1223,7 +1225,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1238,7 +1240,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1251,7 +1253,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1266,7 +1268,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1279,7 +1281,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1294,7 +1296,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1307,7 +1309,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1322,7 +1324,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1335,7 +1337,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1350,7 +1352,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1363,7 +1365,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1378,7 +1380,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1475,7 +1477,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1490,7 +1492,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1503,7 +1505,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1518,7 +1520,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1531,7 +1533,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1546,7 +1548,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1559,7 +1561,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1574,7 +1576,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1587,7 +1589,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1602,7 +1604,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1615,7 +1617,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1630,7 +1632,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1643,7 +1645,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1658,7 +1660,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1671,7 +1673,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1686,7 +1688,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1699,7 +1701,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1714,7 +1716,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1727,7 +1729,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1742,7 +1744,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1755,7 +1757,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1770,7 +1772,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1783,7 +1785,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1798,7 +1800,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1811,7 +1813,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1826,7 +1828,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1839,7 +1841,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1854,7 +1856,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1867,7 +1869,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1882,7 +1884,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1895,7 +1897,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1910,7 +1912,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1923,7 +1925,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1938,7 +1940,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1951,7 +1953,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1966,7 +1968,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -1979,7 +1981,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -1994,7 +1996,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -2007,7 +2009,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -2022,7 +2024,7 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
+          Value: false
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
@@ -2035,7 +2037,7 @@ Visualization Manager:
           Color: 255; 255; 255
           Color Transformer: RGB8
           Decay Time: 0
-          Enabled: true
+          Enabled: false
           Invert Rainbow: false
           Max Color: 255; 255; 255
           Min Color: 0; 0; 0
@@ -2050,8 +2052,8 @@ Visualization Manager:
           Unreliable: false
           Use Fixed Frame: true
           Use rainbow: true
-          Value: true
-      Enabled: true
+          Value: false
+      Enabled: false
       Name: RGB_map
     - Class: rviz/Image
       Enabled: true
@@ -2077,6 +2079,46 @@ Visualization Manager:
       Transport Hint: raw
       Unreliable: false
       Value: true
+    - Class: rviz/Image
+      Enabled: false
+      Image Topic: /track_img
+      Max Value: 1
+      Median window: 5
+      Min Value: 0
+      Name: Image
+      Normalize Range: true
+      Queue Size: 2
+      Transport Hint: raw
+      Unreliable: false
+      Value: false
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: ""
+      Decay Time: 0
+      Enabled: false
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Min Color: 0; 0; 0
+      Name: PointCloud2
+      Position Transformer: ""
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.009999999776482582
+      Style: Flat Squares
+      Topic: /track_pts
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 0; 0; 0
@@ -2103,7 +2145,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 16.403491973876953
+      Distance: 51.51559829711914
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -2111,17 +2153,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -1.1007927656173706
-        Y: -8.76132869720459
-        Z: 3.4790029525756836
+        X: -0.4871193468570709
+        Y: -7.590705871582031
+        Z: 2.0739858150482178
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: -1.0602021217346191
+      Pitch: 0.11479721963405609
       Target Frame: aft_mapped
-      Yaw: 1.3645546436309814
+      Yaw: 6.157737731933594
     Saved:
       - Class: rviz/ThirdPersonFollower
         Distance: 2.466799259185791
@@ -2169,9 +2211,11 @@ Window Geometry:
   Height: 1016
   Hide Left Dock: false
   Hide Right Dock: true
+  Image:
+    collapsed: false
   Input image:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd0000000400000000000002f5000003c5fc0200000019fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f0070006500720074006900650073020000050d0000039500000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000001200720061007700200049006d0061006700650000000028000000300000000000000000fb00000012007200610077005f0069006d0061006700650000000299000001680000000000000000fb0000000c00430061006d0065007200610000000000000002330000000000000000fb00000020006c006f006f0070005f006d0061007400630068005f0069006d0061006700650000000230000001380000000000000000fb0000000a0049006d00610067006500000000000000019d0000000000000000fb000000160049006e00700075007400200069006d0061006700650100000016000001c20000001600fffffffb000000220066006500610074007500720065007300200074007200610063006b0069006e006701000003ba0000028d0000000000000000fb0000000c00430061006d00650072006101000001e80000001d0000000000000000fb0000000a0049006d0061006700650100000416000004100000000000000000fb0000001c0054007200610063006b0065006400200070006f0069006e0074007301000001de000001050000001600fffffffb000000100044006900730070006c00610079007301000002e9000000f2000000c900fffffffb000000100044006900730070006c00610079007300000005950000035f000000c900fffffffc000000280000011e0000000000fffffffa000000000100000002fb0000001200720061007700200049006d0061006700650000000000ffffffff0000000000000000fb0000001a0074007200610063006b0065006400200069006d0061006700650100000000000002370000000000000000fb0000001000410052005f0069006d0061006700650100000373000000160000000000000000fb0000001200720061007700200069006d006100670065010000038f000000160000000000000000fb000000100044006900730070006c0061007900730100000427000003ff0000000000000000fb0000000c00430061006d006500720061010000059b0000028b0000000000000000fb0000000a0049006d0061006700650100000739000000ed0000000000000000000000010000020800000826fc0200000004fb0000000a00560069006500770073000000000000000826000000a400fffffffb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb000000100044006900730070006c006100790073000000040a0000041c0000000000000000fb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000f00000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e1000001970000000300000e9e0000004afc0100000002fb0000000800540069006d0065020000006200000258000004f5000001e0fb0000000800540069006d006501000000000000045000000000000000000000043d000003c500000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730000000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000400000000000002f5000003c5fc020000001afb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f0070006500720074006900650073020000050d0000039500000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000001200720061007700200049006d0061006700650000000028000000300000000000000000fb00000012007200610077005f0069006d0061006700650000000299000001680000000000000000fb0000000c00430061006d0065007200610000000000000002330000000000000000fb00000020006c006f006f0070005f006d0061007400630068005f0069006d0061006700650000000230000001380000000000000000fb0000000a0049006d00610067006500000000000000019d0000001600fffffffb000000160049006e00700075007400200069006d0061006700650100000016000001b90000001600fffffffb000000220066006500610074007500720065007300200074007200610063006b0069006e006701000003ba0000028d0000000000000000fb0000000c00430061006d00650072006101000001e80000001d0000000000000000fb0000000a0049006d0061006700650100000416000004100000000000000000fb0000001c0054007200610063006b0065006400200070006f0069006e0074007301000001d5000000ff0000001600fffffffb000000100044006900730070006c00610079007301000002da00000101000000c900fffffffb000000100044006900730070006c00610079007300000005950000035f000000c900fffffffc000000280000011e0000000000fffffffa000000000100000002fb0000001200720061007700200049006d0061006700650000000000ffffffff0000000000000000fb0000001a0074007200610063006b0065006400200069006d0061006700650100000000000002370000000000000000fb0000001000410052005f0069006d0061006700650100000373000000160000000000000000fb0000001200720061007700200069006d006100670065010000038f000000160000000000000000fb000000100044006900730070006c0061007900730100000427000003ff0000000000000000fb0000000c00430061006d006500720061010000059b0000028b0000000000000000fb0000000a0049006d0061006700650100000739000000ed0000000000000000fb0000000a0049006d0061006700650000000312000000c90000000000000000000000010000020800000826fc0200000004fb0000000a00560069006500770073000000000000000826000000a400fffffffb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb000000100044006900730070006c006100790073000000040a0000041c0000000000000000fb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000f00000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e1000001970000000300000e9e0000004afc0100000002fb0000000800540069006d0065020000006200000258000004f5000001e0fb0000000800540069006d006501000000000000045000000000000000000000043d000003c500000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730000000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:

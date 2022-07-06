@@ -6,13 +6,13 @@ Lidar_front_end:
    
 r3live_common:
    if_dump_log: 0                   # If recording ESIKF update log. [default = 0]
-   record_offline_map: 0            # If recording offline map. [default = 1]
+   record_offline_map: 1            # If recording offline map. [default = 1]
    pub_pt_minimum_views: 3          # Publish points which have been render up to "pub_pt_minimum_views" time. [default = 3]
    minimum_pts_size: 0.01           # The minimum distance for every two points in Global map (unit in meter). [default = 0.01] 
    image_downsample_ratio: 1        # The downsample ratio of the input image. [default = 1]
-   estimate_i2c_extrinsic: 1        # If enable estimate the extrinsic between camera and IMU. [default = 1] 
+   estimate_i2c_extrinsic: 0        # If enable estimate the extrinsic between camera and IMU. [default = 1]
    estimate_intrinsic: 0            # If enable estimate the online intrinsic calibration of the camera lens. [default = 1]
-   maximum_vio_tracked_pts: 600     # The maximum points for tracking. [default = 600]
+   maximum_vio_tracked_pts: 1500     # The maximum points for tracking. [default = 600]
    append_global_map_point_step: 4  # The point step of append point to global map. [default = 4]
 
 r3live_vio:
@@ -28,7 +28,13 @@ r3live_vio:
        -0.99995, 0.00969, 0.00143,
        -0.00977, -0.99697, -0.07715 ]
    camera_ext_t: [ 0.05903, 0.11914, 0.04512 ]
-   
+#   camera_ext_R: # Camera->IMU (IMU is a base frame) TODO
+#      [ 0.00068, -0.07716, 0.99702,
+#        -0.99995, 0.00969, 0.00143,
+#        -0.00977, -0.99697, -0.07715 ]
+#   camera_ext_t: [ 0.00391, 0.09688, 0.07482 ]
+#   camera_ext_t: [ 0.05121, −0.07462, −0.10452 ]
+
 r3live_lio:        
    lio_update_point_step: 4   # Point step used for LIO update.  TODO: Check. Can affect scanning
    max_iteration: 2           # Maximum times of LIO esikf. TODO: Check. Can affect scanning
@@ -42,3 +48,7 @@ r3live_lio:
        0, 1, 0,
        0, 0, 1 ]
    lidar_ext_t: [ 0.05512, 0.02226, -0.0297 ]
+   acc_noise: 1e-1
+   gyro_noise: 1e-1
+   acc_random_walk: 1e-4
+   gyro_random_walk: 1e-4
